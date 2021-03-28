@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
- *    Elias Volanakis - initial API and implementation
+ *Â Â Â Â Elias Volanakis - initial API and implementation
  *******************************************************************************/
 package org.eclipse.gef.examples.shapes.parts;
 
@@ -21,6 +21,8 @@ import org.eclipse.draw2d.Ellipse;
 import org.eclipse.draw2d.EllipseAnchor;
 import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.RectangleFigure;
+import org.eclipse.draw2d.Triangle;
+import org.eclipse.draw2d.TriangleAnchor;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import org.eclipse.gef.ConnectionEditPart;
@@ -39,12 +41,13 @@ import org.eclipse.gef.examples.shapes.model.EllipticalShape;
 import org.eclipse.gef.examples.shapes.model.ModelElement;
 import org.eclipse.gef.examples.shapes.model.RectangularShape;
 import org.eclipse.gef.examples.shapes.model.Shape;
+import org.eclipse.gef.examples.shapes.model.TriangularShape;
 import org.eclipse.gef.examples.shapes.model.commands.ConnectionCreateCommand;
 import org.eclipse.gef.examples.shapes.model.commands.ConnectionReconnectCommand;
 
 /**
- * EditPart used for Shape instances (more specific for EllipticalShape and
- * RectangularShape instances).
+ * EditPart used for Shape instances (more specific for EllipticalShape,
+ * RectangularShape and TriangularShape instances).
  * <p>
  * This edit part must implement the PropertyChangeListener interface, so it can
  * be notified of property changes in the corresponding model element.
@@ -177,6 +180,8 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 			return new Ellipse();
 		} else if (getModel() instanceof RectangularShape) {
 			return new RectangleFigure();
+		} else if (getModel() instanceof TriangularShape) {
+			return new Triangle();
 		} else {
 			// if Shapes gets extended the conditions above must be updated
 			throw new IllegalArgumentException();
@@ -204,6 +209,8 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 				anchor = new EllipseAnchor(getFigure());
 			else if (getModel() instanceof RectangularShape)
 				anchor = new ChopboxAnchor(getFigure());
+			else if (getModel() instanceof TriangularShape)
+				anchor = new TriangleAnchor(getFigure());
 			else
 				// if Shapes gets extended the conditions above must be updated
 				throw new IllegalArgumentException("unexpected model");

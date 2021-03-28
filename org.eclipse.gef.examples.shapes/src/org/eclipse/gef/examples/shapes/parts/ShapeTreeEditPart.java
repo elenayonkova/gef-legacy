@@ -1,13 +1,13 @@
 /*******************************************************************************
  * Copyright (c) 2004, 2005 Elias Volanakis and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Elias Volanakis - initial API and implementation
- *******************************************************************************/
+Â * All rights reserved. This program and the accompanying materials
+Â * are made available under the terms of the Eclipse Public License v1.0
+Â * which accompanies this distribution, and is available at
+Â * http://www.eclipse.org/legal/epl-v10.html
+Â *
+Â * Contributors:
+Â *Â Â Â Â Elias Volanakis - initial API and implementation
+Â *******************************************************************************/
 package org.eclipse.gef.examples.shapes.parts;
 
 import java.beans.PropertyChangeEvent;
@@ -22,9 +22,9 @@ import org.eclipse.gef.examples.shapes.model.ModelElement;
 import org.eclipse.gef.examples.shapes.model.Shape;
 
 /**
- * TreeEditPart used for Shape instances (more specific for EllipticalShape and
- * RectangularShape instances). This is used in the Outline View of the
- * ShapesEditor.
+ * TreeEditPart used for Shape instances (more specific for EllipticalShape,
+ * RectangularShape and TriangularShape instances). This is used in the Outline
+ * View of the ShapesEditor.
  * <p>
  * This edit part must implement the PropertyChangeListener interface, so it can
  * be notified of property changes in the corresponding model element.

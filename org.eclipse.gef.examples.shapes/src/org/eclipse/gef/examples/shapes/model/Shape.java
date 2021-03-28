@@ -34,6 +34,7 @@ import org.eclipse.gef.examples.shapes.ShapesPlugin;
  * 
  * @see org.eclipse.gef.examples.shapes.model.RectangularShape
  * @see org.eclipse.gef.examples.shapes.model.EllipticalShape
+ * @see org.eclipse.gef.examples.shapes.model.TriangularShape
  * @author Elias Volanakis
  */
 public abstract class Shape extends ModelElement {

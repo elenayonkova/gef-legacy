@@ -1,13 +1,13 @@
 /*******************************************************************************
  * Copyright (c) 2004, 2005 Elias Volanakis and others.
- * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v1.0
- * which accompanies this distribution, and is available at
- * http://www.eclipse.org/legal/epl-v10.html
- *
- * Contributors:
- *    Elias Volanakis - initial API and implementation
- *******************************************************************************/
+Â * All rights reserved. This program and the accompanying materials
+Â * are made available under the terms of the Eclipse Public License v1.0
+Â * which accompanies this distribution, and is available at
+Â * http://www.eclipse.org/legal/epl-v10.html
+Â *
+Â * Contributors:
+Â *Â Â Â Â Elias Volanakis - initial API and implementation
+Â *******************************************************************************/
 package org.eclipse.gef.examples.shapes.parts;
 
 import java.beans.PropertyChangeEvent;
@@ -38,6 +38,7 @@ import org.eclipse.gef.examples.shapes.model.ModelElement;
 import org.eclipse.gef.examples.shapes.model.RectangularShape;
 import org.eclipse.gef.examples.shapes.model.Shape;
 import org.eclipse.gef.examples.shapes.model.ShapesDiagram;
+import org.eclipse.gef.examples.shapes.model.TriangularShape;
 import org.eclipse.gef.examples.shapes.model.commands.ShapeCreateCommand;
 import org.eclipse.gef.examples.shapes.model.commands.ShapeSetConstraintCommand;
 
@@ -191,7 +192,8 @@ class DiagramEditPart extends AbstractGraphicalEditPart implements
 		protected Command getCreateCommand(CreateRequest request) {
 			Object childClass = request.getNewObjectType();
 			if (childClass == EllipticalShape.class
-					|| childClass == RectangularShape.class) {
+					|| childClass == RectangularShape.class
+					|| childClass == TriangularShape.class) {
 				// return a command that can add a Shape to a ShapesDiagram
 				return new ShapeCreateCommand((Shape) request.getNewObject(),
 						(ShapesDiagram) getHost().getModel(),
