@@ -62,6 +62,8 @@ public abstract class Shape extends ModelElement {
 	public static final String SOURCE_CONNECTIONS_PROP = "Shape.SourceConn";
 	/** Property ID to use when the list of incoming connections is modified. */
 	public static final String TARGET_CONNECTIONS_PROP = "Shape.TargetConn";
+
+	public static final String LINE_WIDTH_PROP = "Shape.Line";
 	/**
 	 * ID for the Width property value (used for by the corresponding property
 	 * descriptor).
@@ -94,7 +96,8 @@ public abstract class Shape extends ModelElement {
 															// description pair
 				new TextPropertyDescriptor(YPOS_PROP, "Y"),
 				new TextPropertyDescriptor(WIDTH_PROP, "Width"),
-				new TextPropertyDescriptor(HEIGHT_PROP, "Height"), };
+				new TextPropertyDescriptor(HEIGHT_PROP, "Height"),
+				new TextPropertyDescriptor(LINE_WIDTH_PROP, "Line width"), };
 		// use a custom cell editor validator for all four array entries
 		for (int i = 0; i < descriptors.length; i++) {
 			((PropertyDescriptor) descriptors[i])
@@ -131,6 +134,8 @@ public abstract class Shape extends ModelElement {
 	private List sourceConnections = new ArrayList();
 	/** List of incoming Connections. */
 	private List targetConnections = new ArrayList();
+
+	private int lineWidth;
 
 	/**
 	 * Add an incoming or outgoing connection to this shape.
@@ -208,6 +213,9 @@ public abstract class Shape extends ModelElement {
 		if (WIDTH_PROP.equals(propertyId)) {
 			return Integer.toString(size.width);
 		}
+		if (LINE_WIDTH_PROP.equals(propertyId)) {
+			return Integer.toString(lineWidth);
+		}
 		return super.getPropertyValue(propertyId);
 	}
 
@@ -218,6 +226,10 @@ public abstract class Shape extends ModelElement {
 	 */
 	public Dimension getSize() {
 		return size.getCopy();
+	}
+
+	public int getLineWidth() {
+		return lineWidth;
 	}
 
 	/**
@@ -295,6 +307,9 @@ public abstract class Shape extends ModelElement {
 		} else if (WIDTH_PROP.equals(propertyId)) {
 			int width = Integer.parseInt((String) value);
 			setSize(new Dimension(width, size.height));
+		} else if (LINE_WIDTH_PROP.equals(propertyId)) {
+			int width = Integer.parseInt((String) value);
+			setLineWidth(width);
 		} else {
 			super.setPropertyValue(propertyId, value);
 		}
@@ -310,6 +325,13 @@ public abstract class Shape extends ModelElement {
 		if (newSize != null) {
 			size.setSize(newSize);
 			firePropertyChange(SIZE_PROP, null, size);
+		}
+	}
+
+	public void setLineWidth(int newLineWidth) {
+		if (newLineWidth > 0) {
+			lineWidth = newLineWidth;
+			firePropertyChange(LINE_WIDTH_PROP, null, new Integer(lineWidth));
 		}
 	}
 }

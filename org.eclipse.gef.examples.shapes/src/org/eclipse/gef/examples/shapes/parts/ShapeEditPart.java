@@ -55,8 +55,8 @@ import org.eclipse.gef.examples.shapes.model.commands.ConnectionReconnectCommand
  * 
  * @author Elias Volanakis
  */
-class ShapeEditPart extends AbstractGraphicalEditPart implements
-		PropertyChangeListener, NodeEditPart {
+class ShapeEditPart extends AbstractGraphicalEditPart
+		implements PropertyChangeListener, NodeEditPart {
 
 	private ConnectionAnchor anchor;
 
@@ -177,9 +177,13 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 	 */
 	private IFigure createFigureForModel() {
 		if (getModel() instanceof EllipticalShape) {
-			return new Ellipse();
+			Ellipse ellipse = new Ellipse();
+			ellipse.setLineWidth(((EllipticalShape) getModel()).getLineWidth());
+			return ellipse;
 		} else if (getModel() instanceof RectangularShape) {
-			return new RectangleFigure();
+			RectangleFigure rect = new RectangleFigure();
+			rect.setLineWidth(((RectangularShape) getModel()).getLineWidth());
+			return rect;
 		} else if (getModel() instanceof TriangularShape) {
 			return new Triangle();
 		} else {
@@ -221,9 +225,8 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.eclipse.gef.editparts.AbstractGraphicalEditPart#getModelSourceConnections
-	 * ()
+	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#
+	 * getModelSourceConnections ()
 	 */
 	protected List getModelSourceConnections() {
 		return getCastedModel().getSourceConnections();
@@ -232,9 +235,8 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * org.eclipse.gef.editparts.AbstractGraphicalEditPart#getModelTargetConnections
-	 * ()
+	 * @see org.eclipse.gef.editparts.AbstractGraphicalEditPart#
+	 * getModelTargetConnections ()
 	 */
 	protected List getModelTargetConnections() {
 		return getCastedModel().getTargetConnections();
@@ -294,7 +296,8 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 	 */
 	public void propertyChange(PropertyChangeEvent evt) {
 		String prop = evt.getPropertyName();
-		if (Shape.SIZE_PROP.equals(prop) || Shape.LOCATION_PROP.equals(prop)) {
+		if (Shape.SIZE_PROP.equals(prop) || Shape.LOCATION_PROP.equals(prop)
+				|| Shape.LINE_WIDTH_PROP.equals(prop)) {
 			refreshVisuals();
 		} else if (Shape.SOURCE_CONNECTIONS_PROP.equals(prop)) {
 			refreshSourceConnections();
@@ -312,7 +315,9 @@ class ShapeEditPart extends AbstractGraphicalEditPart implements
 		// and will not draw it correctly.
 		Rectangle bounds = new Rectangle(getCastedModel().getLocation(),
 				getCastedModel().getSize());
-		((GraphicalEditPart) getParent()).setLayoutConstraint(this,
-				getFigure(), bounds);
+		((GraphicalEditPart) getParent()).setLayoutConstraint(this, getFigure(),
+				bounds);
+		((org.eclipse.draw2d.Shape) getFigure())
+				.setLineWidth(getCastedModel().getLineWidth());
 	}
 }

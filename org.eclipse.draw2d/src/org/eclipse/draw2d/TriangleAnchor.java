@@ -26,7 +26,17 @@ public class TriangleAnchor extends ChopboxAnchor {
 	public Point getLocation(Point reference) {
 		Rectangle r = Rectangle.SINGLETON;
 		r.setBounds(getBox());
-		r.resize(-1, -1);
+		r.translate(-1, -1);
+		r.resize(1, 1);
+		getOwner().translateToAbsolute(r);
+
+		Point ref = r.getCenter().negate().translate(reference);
+		
+		if (ref.x == 0)
+			return new Point(reference.x, (ref.y > 0) ? r.bottom() : r.y);
+		if (ref.y == 0)
+			return new Point((ref.x > 0) ? r.right() : r.x, reference.y);
+
 
 		int size;
 		size = Math.min(r.height, r.width / 2);
